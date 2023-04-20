@@ -12,8 +12,8 @@ class WelcomeTest {
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void Ex_1() {
+		assertEquals("Hello, Bob",Welcome.Welcome("bob"));
 	}
 
 }
