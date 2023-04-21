@@ -13,9 +13,9 @@ class WelcomeTest {
 
 	@Test
 	void Ex_1() {
-		//assertEquals("Hello, Bob",Welcome.Welcome("bob"));
-		//assertEquals("Hello, Sandra",Welcome.Welcome("Sandra"));
-		//assertEquals("Hello, Véronique",Welcome.Welcome("véronique"));
+		assertEquals("Hello, Bob",Welcome.Welcome("bob"));
+		assertEquals("Hello, Sandra",Welcome.Welcome("Sandra"));
+		assertEquals("Hello, Véronique",Welcome.Welcome("véronique"));
 	}
 	
 	@Test
@@ -23,6 +23,12 @@ class WelcomeTest {
 		assertEquals("Hello, my friend",Welcome.Welcome("    "));
 		assertEquals("Hello, my friend",Welcome.Welcome(null));
 		assertEquals("Hello, my friend",Welcome.Welcome(""));
+	}
+	
+	@Test
+	void Ex_3() {
+		assertEquals("HELLO, JERRY !",Welcome.Welcome("JERRY"));
+		assertEquals("HELLO, FOOL !",Welcome.Welcome("FOOL"));
 	}
 
 }
