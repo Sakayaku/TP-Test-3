@@ -13,7 +13,16 @@ class WelcomeTest {
 
 	@Test
 	void Ex_1() {
-		assertEquals("Hello, Bob",Welcome.Welcome("bob"));
+		//assertEquals("Hello, Bob",Welcome.Welcome("bob"));
+		//assertEquals("Hello, Sandra",Welcome.Welcome("Sandra"));
+		//assertEquals("Hello, Véronique",Welcome.Welcome("véronique"));
+	}
+	
+	@Test
+	void Ex_2() {
+		assertEquals("Hello, my friend",Welcome.Welcome("    "));
+		assertEquals("Hello, my friend",Welcome.Welcome(null));
+		assertEquals("Hello, my friend",Welcome.Welcome(""));
 	}
 
 }

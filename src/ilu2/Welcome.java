@@ -4,10 +4,15 @@ public class Welcome {
 
 	public static String Welcome(String input) {
 		StringBuilder resultat = new StringBuilder("Hello, ");
-		if (Character.isUpperCase(input.charAt(0))) {
-			return resultat.append(input).toString();
+		System.out.println(input);
+		if (input==null || input.isEmpty() || input.trim().isEmpty()) {
+			resultat.append("my friend");
 		}else {
-			resultat.append(Character.toUpperCase(input.charAt(0))).append(input.substring(1));
+			if (Character.isUpperCase(input.charAt(0))) {
+				resultat.append(input);
+			}else {
+				resultat.append(Character.toUpperCase(input.charAt(0))).append(input.substring(1));
+			}
 		}
 		return resultat.toString();
 	}
