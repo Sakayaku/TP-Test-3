@@ -30,5 +30,17 @@ class WelcomeTest {
 		assertEquals("HELLO, JERRY !",Welcome.Welcome("JERRY"));
 		assertEquals("HELLO, FOOL !",Welcome.Welcome("FOOL"));
 	}
+	
+	@Test
+	void Ex_4() {
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("amy,bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("amy, bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("Amy,Bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("Amy, Bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("amy, Bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("amy,Bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("Amy, bob"));
+		assertEquals("Hello, Amy, Bob",Welcome.Welcome("Amy,bob"));
+	}
 
 }
