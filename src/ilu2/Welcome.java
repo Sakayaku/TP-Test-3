@@ -4,7 +4,7 @@ public class Welcome {
 		
 	public static String Welcome(String input) {
 		StringBuilder resultat = new StringBuilder("Hello, ");
-		if (input==null || input.isEmpty() || justePrenom(input).isEmpty()) {
+		if (input==null || input.isEmpty() || input.trim().isEmpty()) {
 			resultat.append("my friend");
 		}else {
 			if (input.equals(input.toUpperCase())) {
@@ -13,38 +13,48 @@ public class Welcome {
 			if (input.contains(",")) {
 				resultat.append(plusieursNoms(input));
 			}else {
-				resultat.append(premiereLettreMajuscule(input));
+				resultat.append(nomPropre(input));
 			}
 		}
 		return resultat.toString();
 	}
 	
-	private static String premiereLettreMajuscule(String input) {
+	private static String nomPropre(String input) { 
+		input=input.trim();
 		StringBuilder resultat=new StringBuilder();
 		if (Character.isUpperCase(input.charAt(0))) {
-			return input;
+			resultat.append(input);
 		}else {
-			return resultat.append(Character.toUpperCase(input.charAt(0))).append(input.substring(1)).toString();
+			resultat.append(Character.toUpperCase(input.charAt(0)));
+			resultat.append(input.substring(1));;
 		}
+		return resultat.toString();
 	}
+	
 	
 	private static String cris(String input) {
 		StringBuilder resultat = new StringBuilder("HELLO, ");
-		return resultat.append(justePrenom(input)).append(" !").toString();
-	}
-	
-	private static String justePrenom(String input) {
-		return input.trim();
+		return resultat.append(nomPropre(input)).append(" !").toString();
 	}
 	
 	private static String plusieursNoms(String input) {
 		StringBuilder resultat = new StringBuilder();
-		String[] intermediaire = input.split(",");
-		for (int i=0;i<intermediaire.length;i++) {
-			resultat.append(premiereLettreMajuscule(justePrenom(intermediaire[i])));
-			resultat.append(", ");
+		StringBuilder resultatMaj= new StringBuilder(". AND HELLO, ");
+		String[] chaineCoupee = input.split(",");
+		for (int i=0;i<chaineCoupee.length;i++) {
+			if (chaineCoupee[i].equals(chaineCoupee[i].toUpperCase())) {
+				resultatMaj.append(nomPropre(chaineCoupee[i]));
+				resultatMaj.append(", ");
+			}else {
+				resultat.append(nomPropre(chaineCoupee[i]));
+				resultat.append(", ");
+			}
 		}
 		resultat.delete(resultat.length()-2, resultat.length());
+		resultatMaj.delete(resultatMaj.length()-2, resultatMaj.length());
+		if (resultatMaj.length()>13) {
+			resultat.append(resultatMaj).append(" !");
+		}
 		return resultat.toString();
 	}
 
