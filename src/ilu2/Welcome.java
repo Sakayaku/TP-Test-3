@@ -38,24 +38,51 @@ public class Welcome {
 	}
 	
 	private static String plusieursNoms(String input) {
-		StringBuilder resultat = new StringBuilder();
-		StringBuilder resultatMaj= new StringBuilder(". AND HELLO, ");
+		StringBuilder resultatMin = new StringBuilder();
+		StringBuilder resultatMaj= new StringBuilder(". AND HELLO");
 		String[] chaineCoupee = input.split(",");
+		int nbNomMaj=0,nbNomMin=0;
 		for (int i=0;i<chaineCoupee.length;i++) {
 			if (chaineCoupee[i].equals(chaineCoupee[i].toUpperCase())) {
-				resultatMaj.append(nomPropre(chaineCoupee[i]));
 				resultatMaj.append(", ");
+				resultatMaj.append(nomPropre(chaineCoupee[i]));
+				nbNomMaj+=1;
 			}else {
-				resultat.append(nomPropre(chaineCoupee[i]));
-				resultat.append(", ");
+				resultatMin.append(nomPropre(chaineCoupee[i]));
+				resultatMin.append(", ");
+				nbNomMin+=1;
 			}
 		}
-		resultat.delete(resultat.length()-2, resultat.length());
-		resultatMaj.delete(resultatMaj.length()-2, resultatMaj.length());
-		if (resultatMaj.length()>13) {
-			resultat.append(resultatMaj).append(" !");
+		resultatMin=ajouterAnd(resultatMin, nbNomMin, "Minuscule");
+		if (nbNomMaj>=1) {
+			resultatMaj=ajouterAnd(resultatMaj, nbNomMaj, "Majuscule");
+			resultatMin.append(resultatMaj);
 		}
-		return resultat.toString();
+		return resultatMin.toString();
 	}
-
+	
+	private static StringBuilder enleverVirguleFinChaine(StringBuilder input) {
+		return input.delete(input.length()-2, input.length());
+	}
+	
+	private static StringBuilder ajouterAnd(StringBuilder input, int nbNom, String format) {
+		switch (format) {
+			case "Majuscule": {
+					if (nbNom>=2) {
+						input.deleteCharAt(11);
+						input.replace(input.lastIndexOf(", "), input.lastIndexOf(", ")+2, " AND ");
+					}
+				return input.append(" !");
+			}
+			case "Minuscule":{
+				input=enleverVirguleFinChaine(input);
+				if (nbNom>1) {
+					input.replace(input.lastIndexOf(", "), input.lastIndexOf(", ")+2, " and ");
+				}
+				return input;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + format);
+		}
+	}
 }
