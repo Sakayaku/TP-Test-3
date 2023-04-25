@@ -75,5 +75,16 @@ class WelcomeTest {
 		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy,BOB,jerry,SYLVESTRE, TITI,TOM,cassandra"));
 
 	}
+	
+	@Test
+	void Ex_8() {
+		assertEquals("Hello, Amy, Bob and Jerry",Welcome.Welcome("Amy        ,         bob,jerry"));
+		assertEquals("Hello, Amy. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy, BOB,          JERRY"));
+		assertEquals("Hello, Amy and Jack. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy       ,Jack, BOB,JERRY"));
+		assertEquals("Hello, Jack and Bob. AND HELLO AMY AND JERRY !",Welcome.Welcome("AMY,Jack,    Bob,JERRY"));
+		assertEquals("Hello, Amy, Bob, Jerry, Sylvestre, Tom and Cassandra",Welcome.Welcome("amy,bob,  jerry  ,Sylvestre,  tom  ,cassandra"));
+		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy     ,     BOB,jerry,    SYLVESTRE, TITI,  TOM  ,cassandra"));
+
+	}
 
 }
