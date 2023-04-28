@@ -14,6 +14,7 @@ public class Welcome {
 			}
 			if (input.contains(",")) {
 				resultat.append(constructionChainePlusieursNoms(input));
+				resultat=yoda(resultat);
 			}else {
 				resultat.append(nomPropre(input));
 			}
@@ -76,8 +77,24 @@ public class Welcome {
 		for (int i=0;i<nomsDistincts.size();i++) {
 			if (frequenceNom[i]>=2) {
 				position=chaineFinale.lastIndexOf(nomsDistincts.get(i).toString())+nomsDistincts.get(i).toString().length();
-				chaineFinale.replace(position, position, " (x"+frequenceNom[i]+")");	
+				chaineFinale.insert(position, " (x"+frequenceNom[i]+")");	
 			}
+		}
+		return chaineFinale;
+	}
+	
+	private static StringBuilder yoda (StringBuilder chaineFinale) {
+		int yoda= chaineFinale.indexOf("Yoda");
+		int YODA= chaineFinale.indexOf("YODA");
+		if (yoda!=-1) {
+			int indexHello=chaineFinale.indexOf("Hello, ");
+			chaineFinale.delete(indexHello, indexHello+7);
+			chaineFinale.insert(chaineFinale.lastIndexOf("."), ", Hello");
+		}
+		if (YODA!=-1) {
+			int indexHELLO=chaineFinale.indexOf("HELLO, ");
+			chaineFinale.delete(indexHELLO, indexHELLO+7);
+			chaineFinale.insert(chaineFinale.lastIndexOf(" "), ", HELLO");
 		}
 		return chaineFinale;
 	}

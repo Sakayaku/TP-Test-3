@@ -94,5 +94,13 @@ class WelcomeTest {
 		assertEquals("Hello, Bob (x3). AND HELLO, JERRY AND CASSANDRA !",Welcome.Welcome("bob, JERRY, bob, bob, CASSANDRA"));
 		assertEquals("Hello, Amy. AND HELLO, JERRY (x2) !",Welcome.Welcome("JERRY, amy, JERRY"));
 	}
+	
+	@Test
+	void Ex_10() {
+		assertEquals("Bob, Yoda and Amy, Hello. AND HELLO, JERRY !",Welcome.Welcome("bob, yoda, amy, JERRY"));
+		assertEquals("Hello, Bob and Amy. AND YODA (x2) AND JERRY, HELLO !",Welcome.Welcome("bob, YODA, amy, JERRY, YODA"));
+		assertEquals("Bob (x3), Amy and Yoda, Hello. AND HELLO, JERRY AND CASSANDRA !",Welcome.Welcome("bob, JERRY, bob, bob, CASSANDRA, Amy, Yoda"));
+		assertEquals("Hello, Amy. AND YODA (x2), HELLO !",Welcome.Welcome("YODA, amy, YODA"));
+	}
 
 }
