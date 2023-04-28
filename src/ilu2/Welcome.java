@@ -1,5 +1,7 @@
 package ilu2;
 
+import java.util.ArrayList;
+
 public class Welcome {
 		
 	public static String Welcome(String input) {
@@ -11,7 +13,7 @@ public class Welcome {
 				return cris(input);
 			}
 			if (input.contains(",")) {
-				resultat.append(plusieursNoms(input));
+				resultat.append(constructionChainePlusieursNoms(input));
 			}else {
 				resultat.append(nomPropre(input));
 			}
@@ -37,28 +39,12 @@ public class Welcome {
 		return resultat.append(nomPropre(input)).append(" !").toString();
 	}
 	
-	private static String plusieursNoms(String input) {
-		StringBuilder resultatMin = new StringBuilder();
-		StringBuilder resultatMaj= new StringBuilder(". AND HELLO");
-		String[] chaineCoupee = input.split(",");
-		int nbNomMaj=0,nbNomMin=0;
-		for (int i=0;i<chaineCoupee.length;i++) {
-			if (chaineCoupee[i].equals(chaineCoupee[i].toUpperCase())) {
-				resultatMaj.append(", ");
-				resultatMaj.append(nomPropre(chaineCoupee[i]));
-				nbNomMaj+=1;
-			}else {
-				resultatMin.append(nomPropre(chaineCoupee[i]));
-				resultatMin.append(", ");
-				nbNomMin+=1;
-			}
+	private static int[] remplirTableauDeUn (int taille) {
+		int[] tableau = new int[taille];
+		for (int i=0;i<taille;i++) {
+			tableau[i]=1;
 		}
-		resultatMin=ajouterAnd(resultatMin, nbNomMin, "Minuscule");
-		if (nbNomMaj>=1) {
-			resultatMaj=ajouterAnd(resultatMaj, nbNomMaj, "Majuscule");
-			resultatMin.append(resultatMaj);
-		}
-		return resultatMin.toString();
+		return tableau;
 	}
 	
 	private static StringBuilder enleverVirguleFinChaine(StringBuilder input) {
@@ -66,16 +52,15 @@ public class Welcome {
 	}
 	
 	private static StringBuilder ajouterAnd(StringBuilder input, int nbNom, String format) {
+		input=enleverVirguleFinChaine(input);
 		switch (format) {
 			case "Majuscule": {
 					if (nbNom>=2) {
-						input.deleteCharAt(11);
 						input.replace(input.lastIndexOf(", "), input.lastIndexOf(", ")+2, " AND ");
 					}
 				return input.append(" !");
 			}
 			case "Minuscule":{
-				input=enleverVirguleFinChaine(input);
 				if (nbNom>1) {
 					input.replace(input.lastIndexOf(", "), input.lastIndexOf(", ")+2, " and ");
 				}
@@ -85,4 +70,45 @@ public class Welcome {
 			throw new IllegalArgumentException("Unexpected value: " + format);
 		}
 	}
+	
+	private static StringBuilder ajouterFrequenceNoms(ArrayList nomsDistincts, int[] frequenceNom, StringBuilder chaineFinale) {
+		int position=0;
+		for (int i=0;i<nomsDistincts.size();i++) {
+			if (frequenceNom[i]>=2) {
+				position=chaineFinale.lastIndexOf(nomsDistincts.get(i).toString())+nomsDistincts.get(i).toString().length();
+				chaineFinale.replace(position, position, " (x"+frequenceNom[i]+")");	
+			}
+		}
+		return chaineFinale;
+	}
+	
+	private static String constructionChainePlusieursNoms(String input) {
+		StringBuilder resultatMin = new StringBuilder();
+		StringBuilder resultatMaj= new StringBuilder(". AND HELLO, ");
+		String[] chaineCoupee = input.split(",");
+		int nbNomMaj=0,nbNomMin=0;
+		ArrayList nomDistincts = new ArrayList();
+		int[] frequenceNom= remplirTableauDeUn(chaineCoupee.length);
+		for (int i=0;i<chaineCoupee.length;i++) {
+			String nomActuel=nomPropre(chaineCoupee[i]);
+				if (nomDistincts.contains(nomActuel)) {
+					frequenceNom[nomDistincts.indexOf(nomActuel)]+=1;
+				}else {
+					if (nomActuel.equals(nomActuel.toUpperCase())) {
+						resultatMaj.append(nomActuel).append(", ");
+						nbNomMaj+=1;	
+					}else {
+						resultatMin.append(nomPropre(nomActuel)).append(", ");
+						nbNomMin+=1;
+					}
+					nomDistincts.add(nomActuel);
+				}
+		}
+		resultatMin=ajouterAnd(resultatMin, nbNomMin, "Minuscule");
+		if (nbNomMaj>=1) {
+			resultatMin.append(ajouterAnd(resultatMaj, nbNomMaj, "Majuscule"));
+		}
+		return ajouterFrequenceNoms(nomDistincts, frequenceNom, resultatMin).toString();
+	}
+	
 }

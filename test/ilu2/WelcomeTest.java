@@ -61,30 +61,38 @@ class WelcomeTest {
 		assertEquals("Hello, Amy and Jerry. AND HELLO, BOB !",Welcome.Welcome("Amy,BOB,jerry"));
 		assertEquals("Hello, Bob and Jerry. AND HELLO, AMY !",Welcome.Welcome("           AMY,           bob,jerry"));
 		assertEquals("Hello, Amy and Bob. AND HELLO, JERRY !",Welcome.Welcome("Amy,bob,JERRY"));
-		assertEquals("Hello, Amy. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy,BOB,JERRY"));
+		assertEquals("Hello, Amy. AND HELLO, BOB AND JERRY !",Welcome.Welcome("Amy,BOB,JERRY"));
 
 	}
 	
 	@Test
 	void Ex_7() {
 		assertEquals("Hello, Amy, Bob and Jerry",Welcome.Welcome("Amy,bob,jerry"));
-		assertEquals("Hello, Amy. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy, BOB, JERRY"));
-		assertEquals("Hello, Amy and Jack. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy,Jack, BOB,JERRY"));
-		assertEquals("Hello, Jack and Bob. AND HELLO AMY AND JERRY !",Welcome.Welcome("AMY,Jack,Bob,JERRY"));
+		assertEquals("Hello, Amy. AND HELLO, BOB AND JERRY !",Welcome.Welcome("Amy, BOB, JERRY"));
+		assertEquals("Hello, Amy and Jack. AND HELLO, BOB AND JERRY !",Welcome.Welcome("Amy,Jack, BOB,JERRY"));
+		assertEquals("Hello, Jack and Bob. AND HELLO, AMY AND JERRY !",Welcome.Welcome("AMY,Jack,Bob,JERRY"));
 		assertEquals("Hello, Amy, Bob, Jerry, Sylvestre, Tom and Cassandra",Welcome.Welcome("amy,bob,jerry,Sylvestre,tom,cassandra"));
-		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy,BOB,jerry,SYLVESTRE, TITI,TOM,cassandra"));
+		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO, BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy,BOB,jerry,SYLVESTRE, TITI,TOM,cassandra"));
 
 	}
 	
 	@Test
 	void Ex_8() {
 		assertEquals("Hello, Amy, Bob and Jerry",Welcome.Welcome("Amy        ,         bob,jerry"));
-		assertEquals("Hello, Amy. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy, BOB,          JERRY"));
-		assertEquals("Hello, Amy and Jack. AND HELLO BOB AND JERRY !",Welcome.Welcome("Amy       ,Jack, BOB,JERRY"));
-		assertEquals("Hello, Jack and Bob. AND HELLO AMY AND JERRY !",Welcome.Welcome("AMY,Jack,    Bob,JERRY"));
+		assertEquals("Hello, Amy. AND HELLO, BOB AND JERRY !",Welcome.Welcome("Amy, BOB,          JERRY"));
+		assertEquals("Hello, Amy and Jack. AND HELLO, BOB AND JERRY !",Welcome.Welcome("Amy       ,Jack, BOB,JERRY"));
+		assertEquals("Hello, Jack and Bob. AND HELLO, AMY AND JERRY !",Welcome.Welcome("AMY,Jack,    Bob,JERRY"));
 		assertEquals("Hello, Amy, Bob, Jerry, Sylvestre, Tom and Cassandra",Welcome.Welcome("amy,bob,  jerry  ,Sylvestre,  tom  ,cassandra"));
-		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy     ,     BOB,jerry,    SYLVESTRE, TITI,  TOM  ,cassandra"));
+		assertEquals("Hello, Amy, Jerry and Cassandra. AND HELLO, BOB, SYLVESTRE, TITI AND TOM !",Welcome.Welcome("amy     ,     BOB,jerry,    SYLVESTRE, TITI,  TOM  ,cassandra"));
 
+	}
+	
+	@Test
+	void Ex_9() {
+		assertEquals("Hello, Bob (x3) and Amy. AND HELLO, JERRY (x2) !",Welcome.Welcome("bob, JERRY, amy, bob, JERRY, bob"));
+		assertEquals("Hello, Bob (x3) and Amy. AND HELLO, JERRY (x2) AND CASSANDRA !",Welcome.Welcome("bob, JERRY, amy, bob, JERRY, bob, CASSANDRA"));
+		assertEquals("Hello, Bob (x3). AND HELLO, JERRY AND CASSANDRA !",Welcome.Welcome("bob, JERRY, bob, bob, CASSANDRA"));
+		assertEquals("Hello, Amy. AND HELLO, JERRY (x2) !",Welcome.Welcome("JERRY, amy, JERRY"));
 	}
 
 }
